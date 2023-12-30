@@ -13,6 +13,7 @@
 <script>
 import TodoForm from "@/components/TodoForm.vue";
 import TodoList from "@/components/TodoList.vue";
+import {mapActions, mapMutations} from 'vuex'
 
 export default {
   name: 'IndexPage',
@@ -20,24 +21,13 @@ export default {
     TodoForm,
     TodoList,
   },
-  data() {
-    return {
-      todos: [],
-    }
-  },
   methods: {
-    createTodo(inputValue) {
-      this.todos.push({
-        id: Date.now(),
-        name: inputValue,
-        isChecked: false,
-      })
-    },
-    deleteTodo(id) {
-      this.todos = this.todos.filter((item) => item.id !== id)
-    },
-    changeChecked(value, id) {
-      this.todos = this.todos.map((item) => item.id === id ? { ...item, isChecked: value } : item)
+    ...mapActions(['createTodo', 'changeChecked']),
+    ...mapMutations(['deleteTodo']),
+  },
+  computed: {
+    todos() {
+      return this.$store.getters.todos;
     }
   }
 }

@@ -12,7 +12,7 @@
         {{ todo.name }}
       </label>
     </div>
-    <button @click="() => $emit('deleteTodo', todo.id)" class="btn btn-danger">Delete</button>
+    <button @click.stop="() => $emit('deleteTodo', todo.id)" class="btn btn-danger">Delete</button>
   </li>
 </template>
 
